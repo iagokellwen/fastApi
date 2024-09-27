@@ -38,7 +38,7 @@ Linux:
 bash
 Copiar código
 sudo pip install -r requirements.txt
-Passo 3: Configurar o Banco de Dados
+# Passo 3: Configurar o Banco de Dados
 Se você tiver o MongoDB instalado localmente, a aplicação já estará configurada para conectar-se ao localhost.
 
 Caso esteja utilizando um cluster MongoDB na nuvem, basta alterar o usuário e a senha no arquivo db.py, localizado na pasta config.
