@@ -1,4 +1,4 @@
-# fastApi - Engenharia de Prompt
+# FastApi - Engenharia de Prompt
 # Desafio LizardTI
 
 # Guia para colocar o chat no ar
