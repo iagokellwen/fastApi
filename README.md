@@ -17,5 +17,5 @@ já existe um codigo pré-configurado, só alterar o usuario e senha no arquivo 
 # passo 4:
 se já estiver na pasta do py-mongo, execute o comando no terminal:
 
-#uvicorn main:app --reload
+# uvicorn main:app --reload
 
