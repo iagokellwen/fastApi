@@ -1,11 +1,11 @@
 # Guia para Colocar o Chat no Ar - Desafio LizardTI (FastAPI)
-Passo 1: Clonar o Repositório
+# Passo 1: Clonar o Repositório
 Clone o repositório do GitHub com o seguinte comando:
 
 bash
 Copiar código
 git clone https://github.com/iagokellwen/fastApi.git
-Passo 2: Instalar Dependências
+# Passo 2: Instalar Dependências
 Instale as bibliotecas necessárias listadas no arquivo requirements.txt.
 
 Opcional: Crie um ambiente virtual para isolar as dependências do projeto. Para isso, use o comando:
@@ -43,7 +43,7 @@ Se você tiver o MongoDB instalado localmente, a aplicação já estará configu
 
 Caso esteja utilizando um cluster MongoDB na nuvem, basta alterar o usuário e a senha no arquivo db.py, localizado na pasta config.
 
-Passo 4: Executar a Aplicação
+# Passo 4: Executar a Aplicação
 Com tudo configurado, estando no diretório do projeto, execute o seguinte comando no terminal para rodar a aplicação com o FastAPI:
 
 bash
