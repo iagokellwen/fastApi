@@ -1,21 +1,54 @@
-# FastApi - Engenharia de Prompt
-# Desafio LizardTI
+# Guia para Colocar o Chat no Ar - Desafio LizardTI (FastAPI)
+Passo 1: Clonar o Repositório
+Clone o repositório do GitHub com o seguinte comando:
 
-# Guia para colocar o chat no ar
+bash
+Copiar código
+git clone https://github.com/iagokellwen/fastApi.git
+Passo 2: Instalar Dependências
+Instale as bibliotecas necessárias listadas no arquivo requirements.txt.
 
-# passo 1:
-clonar o repositorio do git: https://github.com/iagokellwen/fastApi.git
-# passo 2:
-instalar o arquivo requeriments.txt disponibilizado para que posso baixar as bibliotecas necessarias para a aplicação.
-opcional criar um ambiente virtual, caso queira criar, use o comando: python -m venv <nome_do_ambiente> ou python3 para linux
-execute o comando:  
-windows: pip install -r requirements.txt --user
-linux: sudo pip install -r requirements.txt
-# passo 3:
-caso tenha um banco de dados mongo db instalado a aplicação já vem pre-definida para localhost, mas caso tenha um cluster na nuvem
-já existe um codigo pré-configurado, só alterar o usuario e senha no arquivo db.py na pasta config
-# passo 4:
-se já estiver na pasta do py-mongo, execute o comando no terminal:
+Opcional: Crie um ambiente virtual para isolar as dependências do projeto. Para isso, use o comando:
 
-# uvicorn main:app --reload
+Windows:
+bash
+Copiar código
+python -m venv <nome_do_ambiente>
+Linux:
+bash
+Copiar código
+python3 -m venv <nome_do_ambiente>
+Após criar o ambiente, ative-o:
 
+Windows:
+bash
+Copiar código
+<nome_do_ambiente>\Scripts\activate
+Linux:
+bash
+Copiar código
+source <nome_do_ambiente>/bin/activate
+Para instalar as dependências, execute o seguinte comando:
+
+Windows:
+bash
+Copiar código
+pip install -r requirements.txt --user
+Linux:
+bash
+Copiar código
+sudo pip install -r requirements.txt
+Passo 3: Configurar o Banco de Dados
+Se você tiver o MongoDB instalado localmente, a aplicação já estará configurada para conectar-se ao localhost.
+
+Caso esteja utilizando um cluster MongoDB na nuvem, basta alterar o usuário e a senha no arquivo db.py, localizado na pasta config.
+
+Passo 4: Executar a Aplicação
+Com tudo configurado, estando no diretório do projeto, execute o seguinte comando no terminal para rodar a aplicação com o FastAPI:
+
+bash
+Copiar código
+uvicorn main:app --reload
+Esse comando iniciará o servidor com reload automático sempre que houver alterações no código.
+
+Agora, seu chat deve estar disponível!
