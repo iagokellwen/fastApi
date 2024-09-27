@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .chat-section, .upload-section {
+            padding: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .chat-section h2, .upload-section h2 {
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007BFF;
+            color: #007BFF;
+        }
+        .message-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .message-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f0f8ff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .message-item .pergunta {
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .message-item .resposta {
+            color: #333;
+            padding-left: 15px;
+            border-left: 3px solid #007BFF;
+            margin-top: 5px;
+        }
+        .input-section {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-section input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .input-section button:hover {
+            background-color: #0056b3;
+        }
+        .upload-section {
+            padding-top: 0;
+        }
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .upload-form input[type="file"] {
+            margin-bottom: 15px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .upload-form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .upload-form button:hover {
+            background-color: #218838;
+        }
+        #message {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Seção de Chat -->
+        <div class="chat-section" id="chat">
+            <h2>Chat</h2>
+            <div class="message-container" id="messageContainer">
+                <!-- Perguntas e Respostas -->
+                {% for chat in chats %}
+                <div class="message-item">
+                    <div class="pergunta">
+                        Pergunta: {{ chat.pergunta }}
+                    </div>
+                    <div class="resposta">
+                        Resposta: {{ chat.resposta }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Seção de Entrada para Perguntas -->
+            <div class="input-section">
+                <input type="text" id="questionInput" placeholder="Digite sua pergunta...">
+                <button onclick="sendQuestion()">Enviar</button>
+            </div>
+        </div>
+        
+        <!-- Seção de Upload -->
+        <div class="upload-section" id="upload">
+            <h2>Upload de PDF</h2>
+            <form class="upload-form" id="uploadForm" enctype="multipart/form-data">
+                <input type="file" name="file" accept="application/pdf" required>
+                <button type="button" onclick="uploadFile()">Upload</button>
+            </form>
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Função para enviar a pergunta
+        function sendQuestion() {
+            var question = document.getElementById('questionInput').value;
+            if (!question) {
+                alert('Por favor, digite uma pergunta.');
+                return;
+            }
+
+            // Envia a pergunta para o backend na rota correta
+            fetch('/postar', {  // Alterado para a rota correta
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pergunta: question })  // Aqui você mantém o corpo igual
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.pergunta && data.resposta) {
+                    // Adiciona a nova pergunta e resposta ao chat
+                    var messageContainer = document.getElementById('messageContainer');
+                    var messageItem = document.createElement('div');
+                    messageItem.className = 'message-item';
+                    messageItem.innerHTML = `
+                        <div class="pergunta">Pergunta: ${data.pergunta}</div>
+                        <div class="resposta">Resposta: ${data.resposta}</div>
+                    `;
+                    messageContainer.appendChild(messageItem);
+
+                    // Limpa o campo de entrada
+                    document.getElementById('questionInput').value = '';
+                } else {
+                    alert('Erro ao enviar a pergunta.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao enviar a pergunta:', error);
+                alert('Erro ao enviar a pergunta.');
+            });
+        }
+
+        // Adiciona evento de escuta para a tecla "Enter"
+        document.getElementById('questionInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendQuestion(); // Chama a função de enviar pergunta
+            }
+        });
+
+        // Função para fazer upload de arquivo PDF
+        function uploadFile() {
+            var form = document.getElementById('uploadForm');
+            var formData = new FormData(form);
+
+            fetch('/upload-pdf/', {  // Certifique-se de que o caminho está correto
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').innerText = data.info ? data.info : 'Erro: ' + data.detail;
+            })
+            .catch(error => {
+                console.error('Erro ao enviar o arquivo:', error);
+                document.getElementById('message').innerText = 'Erro ao enviar o arquivo.';
+            });
+        }
+    </script>
+</body>
+</html>
