@@ -1,4 +1,4 @@
-# Guia para Colocar o Chat no Ar - Desafio LizardTI (FastAPI)
+# Guia para Colocar o Chat no Ar  (FastAPI)
 # Passo 1: Clonar o Repositório
 Clone o repositório do GitHub com o seguinte comando:
 
