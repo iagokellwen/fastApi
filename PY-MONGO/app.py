@@ -3,7 +3,7 @@ from google.generativeai.types import HarmCategory, HarmBlockThreshold
 from PyPDF2 import PdfReader
 
 
-genai.configure(api_key="AIzaSyAVxFBRdA3YZ5wmmb40txBj_DdCHpGV0Sk")
+genai.configure(api_key="sua_chave")
 
 generation_config = {
     "temperature": 1,
